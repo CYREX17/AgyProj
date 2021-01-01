@@ -1,0 +1,50 @@
+{
+    "KBP": {
+        "aptName": {
+            "en": "Boryspil",
+            "ru": "Борисполь",
+            "ua": "Бориспіль"
+        },
+        "cityName": {
+            "en": "Kyiv",
+            "ru": "Киев",
+            "ua": "Київ"
+        }
+    },
+    "MUC": {
+        "aptName": {
+            "en": "Munich",
+            "ru": "Мюнхен",
+            "ua": "Мюнхен"
+        },
+        "cityName": {
+            "en": "Munich",
+            "ru": "Мюнхен",
+            "ua": "Мюнхен"
+        }
+    },
+    "LHR": {
+        "aptName": {
+            "en": "Heatrow",
+            "ru": "Хитроу",
+            "ua": "Хітроу"
+        },
+        "cityName": {
+            "en": "London",
+            "ru": "Лондон",
+            "ua": "Лондон"
+        }
+    },
+    "LIN": {
+        "aptName": {
+            "en": "Linate",
+            "ru": "Линате",
+            "ua": "Лінате"
+        },
+        "cityName": {
+            "en": "Milan",
+            "ru": "Милан",
+            "ua": "Мілан"
+        }
+    }
+}
