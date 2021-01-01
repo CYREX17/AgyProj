@@ -85,97 +85,131 @@ textArea.addEventListener("input", function(){
 
 
 
+    if (legs) {
+        for (let i = 0; i < legs.length; i++) {
+            origin[i] = legs[i].substr(legs[i].search(/[A-Z]{6}/), 3);
+            destination[i] = legs[i].substr(legs[i].search(/[A-Z]{6}/)+3, 3);
+            console.log(origin[i]);
+            console.log(destination[i]);
 
-    for (let i = 0; i < legs.length; i++) {
-        origin[i] = legs[i].substr(legs[i].search(/[A-Z]{6}/), 3);
-        destination[i] = legs[i].substr(legs[i].search(/[A-Z]{6}/)+3, 3);
-        console.log(origin[i]);
-        console.log(destination[i]);
+            dateDate[i] = legs[i].substr(legs[i].search(/\d{2}[A-Z]{3}/), 2);
+            dateMonth[i] = legs[i].substr(legs[i].search(/\d{2}[A-Z]{3}/)+2, 3);
 
-        dateDate[i] = legs[i].substr(legs[i].search(/\d{2}[A-Z]{3}/), 2);
-        dateMonth[i] = legs[i].substr(legs[i].search(/\d{2}[A-Z]{3}/)+2, 3);
+            console.log(dateDate[i]);
+            console.log(dateMonth[i]);
+            
+            flight[i] = legs[i].substring(0, legs[i].search(/\d{2}[A-Z]{3}/)-1).trim();
+            console.log(flight[i]);
 
-        console.log(dateDate[i]);
-        console.log(dateMonth[i]);
-        
-        flight[i] = legs[i].substring(0, legs[i].search(/\d{2}[A-Z]{3}/)-1).trim();
-        console.log(flight[i]);
+            airline[i] = flight[i].substring(0, 2);
+            flightNum[i] = flight[i].substring(2, flight[i].length).trim();
+            console.log(airline[i]);
+            console.log(flightNum[i]);
 
-        airline[i] = flight[i].substring(0, 2);
-        flightNum[i] = flight[i].substring(2, flight[i].length).trim();
-        console.log(airline[i]);
-        console.log(flightNum[i]);
-
-        depTime[i] = legs[i].substr(legs[i].search(/\d{4} \d{4}/), 4);
-        arrTime[i] = legs[i].substr(legs[i].search(/\d{4} \d{4}/)+5, 4);
-        console.log(depTime[i]);
-        console.log(arrTime[i]);
-
-    }
-    
-
-   // let originW 
-
-
-
-    let request = new XMLHttpRequest();
-    //request.open("GET", "apt1.json");
-    request.open("GET", "airports.json");
-
-    request.setRequestHeader("Content-type", "application/json; charset=utf-8");
-    request.send();
-
-    request.addEventListener("readystatechange", function() { 
-    if (request.readyState == 4 && request.status == 200) {
-        let data = JSON.parse(request.response);
-        // console.log(data);
-        // console.log(data["MUC"]);
-        // let aptName = data["MUC"].aptName;
-        // console.log(aptName);
-
-        // let aptNameLocal = aptName.ua;
-        // console.log(aptNameLocal);
-        // console.log((data["MUC"].aptName).ua);
-        // console.log((data[origin[0]].aptName).ua);
-        // console.log((data[destination[0]].aptName).ua);
-        // console.log((data[origin[1]].aptName).ua);
-        // console.log((data[destination[1]].aptName).ua);
-       
-        for (let i = 0; i < origin.length; i++) {
-                    
-            data.forEach((item) => {
-                if (item.code == origin[i]) {
-                    console.log(item.name);
-                } 
-            });
-
+            depTime[i] = legs[i].substr(legs[i].search(/\d{4} \d{4}/), 4);
+            arrTime[i] = legs[i].substr(legs[i].search(/\d{4} \d{4}/)+5, 4);
+            console.log(depTime[i]);
+            console.log(arrTime[i]);
         }
-
-        
-
-
-    } 
-});
-
-
-
-
-    
-
-
-
-
-
-
-
-
-    console.log(legs[0]);
-    console.log(legs[1]);
-    console.log(legs[2]);
-    
-    for (let i = 0; i < legs.length; i++) {
-        itinOk.innerHTML += legs[i] + "<br/>";
     }
+
+   let originOut = [];
+   let destinationOut = [];
+   let spaces = [];
+   
+
+
+
+    if (legs) {
+        let request = new XMLHttpRequest();
+        //request.open("GET", "apt1.json");
+        request.open("GET", "aptCodes.json");
+
+        request.setRequestHeader("Content-type", "application/json; charset=utf-8");
+        request.send();
+
+        request.addEventListener("readystatechange", function() { 
+            if (request.readyState == 4 && request.status == 200) {
+                let data = JSON.parse(request.response);
+                // console.log(data);
+                // console.log(data["MUC"]);
+                // let aptName = data["MUC"].aptName;
+                // console.log(aptName);
+
+                // let aptNameLocal = aptName.ua;
+                // console.log(aptNameLocal);
+                // console.log((data["MUC"].aptName).ua);
+                // console.log((data[origin[0]].aptName).ua);
+                // console.log((data[destination[0]].aptName).ua);
+                // console.log((data[origin[1]].aptName).ua);
+                // console.log((data[destination[1]].aptName).ua);
+            
+                // for (let i = 0; i < legs.length; i++) {
+                            
+                //     data.forEach((item) => {
+                //         if (item.iataCode == origin[i]) {
+                //             originOut[i] = item.cityName;
+                //         } 
+                //         if (item.iataCode == destination[i]) {
+                //             destinationOut[i] = item.cityName;                        
+                //         }   
+                //     });
+                //     let spaces = []; 
+                //     spaces[i] = originOut[i].length + destinationOut[i].length;
+                //     console.log(Math.max(spaces));
+                // }  
+                
+                let ij = 0;
+                while (ij < legs.length) {
+                        data.forEach((item) => {
+                            if (item.iataCode == origin[ij]) {
+                                originOut[ij] = item.cityName;
+                            } 
+                            if (item.iataCode == destination[ij]) {
+                                destinationOut[ij] = item.cityName;                        
+                            }   
+                        });                         
+                        spaces[ij] = originOut[ij].length + destinationOut[ij].length;
+                        ij++;
+                }  
+
+                
+                console.log(Math.max(...spaces));
+                
+
+
+
+                for (let i = 0; i < legs.length; i++) {
+                    
+                    itinOk.innerHTML += dateDate[i] + dateMonth[i] + "&nbsp".repeat(3) + originOut[i] + " - " +destinationOut[i] + "&nbsp".repeat((Math.max(...spaces) - originOut[i].length - destinationOut[i].length + 5) * 1.7) + depTime[i] + "&nbsp".repeat(3) + arrTime[i] + "<br/>";
+                } 
+
+            }
+            
+        });
+
+    }
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+    // console.log(legs[0]);
+    // console.log(legs[1]);
+    // console.log(legs[2]);
+    
+    // for (let i = 0; i < legs.length; i++) {
+    //     itinOk.innerHTML += legs[i] + "<br/>";
+    // }
 
 
 
