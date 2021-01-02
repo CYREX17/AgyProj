@@ -8,13 +8,26 @@
 </head>
 <body>
     <div class="content">
+        <!-- выводим состояние процесса -->
+        <div id="log"></div>    
+        
         <div class="itin-gds">
             <textarea name="" id="" ></textarea>
         </div>
 
-        <div class="itin-pax"></div>
+        <div class="itin-pax1"></div>
+        <div class="itin-pax2"></div>
 
     </div>
+
+    <input type="file" id="file" />
+
+    
+    <!-- кнопка Начать обработку -->
+    <button type="button" id="start">Начать</button>
+
+    <!-- подключаем библиотеку и наш скрипт-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/2.1.1/tesseract.min.js'></script>
     <script src="script.js"></script>
 </body>
 </html>
